@@ -1,0 +1,4 @@
+[submodule "linux"]
+	path = linux
+	url = https://github.com/XimikBoda/linux.git
+	branch = mt62xx-4.19
