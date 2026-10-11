@@ -2,3 +2,6 @@
 	path = linux
 	url = https://github.com/XimikBoda/linux.git
 	branch = mt62xx-4.19
+[submodule "buildroot"]
+	path = buildroot
+	url = https://github.com/XimikBoda/buildroot.git
