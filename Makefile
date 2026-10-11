@@ -38,9 +38,20 @@ linux-savedefconfig:
 
 clean:
 	@echo ">>> Cleaning Buildroot output..."
-	@$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(EXT_DIR) O=$(OUT_DIR) clean
-	@echo ">>> Cleaning Linux build..."
-	@$(MAKE) -C $(LINUX_DIR) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) clean
+	rm -rf $(OUT_DIR)/target
+	find $(OUT_DIR)/ -name ".stamp_target_installed" -delete
+	rm -f $(OUT_DIR)/build/host-gcc-final-*/.stamp_host_installed
+	#@echo ">>> Cleaning Buildroot output..."
+	#@$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(EXT_DIR) O=$(OUT_DIR) clean
+	#@echo ">>> Cleaning Linux build..."
+	#@$(MAKE) -C $(LINUX_DIR) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) clean
+
+
+busybox-save:
+	@$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(EXT_DIR) O=$(OUT_DIR) busybox-update-config
+
+uclibc-save:
+	@$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(EXT_DIR) O=$(OUT_DIR) uclibc-update-config
 
 %:
 	@$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(EXT_DIR) O=$(OUT_DIR) $@
