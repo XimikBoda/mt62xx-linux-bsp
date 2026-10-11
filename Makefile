@@ -17,8 +17,10 @@ buildroot:
 
 linux:
 	@echo ">>> Building Linux Kernel..."
-	@$(MAKE) -C $(LINUX_DIR) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KCONFIG_CONFIG=$(LINUX_CONF) -j$(shell nproc)
-
+	@$(MAKE) -C $(LINUX_DIR) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KCONFIG_CONFIG=$(LINUX_CONF) HOSTCC="gcc -fcommon" -j$(shell nproc)
+	@cp $(LINUX_DIR)/arch/arm/boot/Image $(OUT_DIR)/
+	@echo ">>> Kernel Image is ready in output/"
+	
 defconfig:
 	@$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(EXT_DIR) O=$(OUT_DIR) mt62xx_defconfig
 
