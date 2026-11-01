@@ -2,6 +2,12 @@
 
 case "$1" in
   start)
+  
+    if [ ! -d /sys/bus/platform/drivers/mt62xx-msdc ] && [ ! -d /sys/class/mmc_host/mmc0 ]; then
+        echo "No sd card driver"
+        exit 1
+    fi
+
     echo -n "Waiting for SD card..."
     count=0
     while [ ! -e /dev/mmcblk0p1 ]; do
