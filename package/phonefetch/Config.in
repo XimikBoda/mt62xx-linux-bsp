@@ -1,0 +1,5 @@
+config BR2_PACKAGE_PHONEFETCH
+	bool "phonefetch"
+	help
+	  System info fetch tool for MT62xx.
+      
