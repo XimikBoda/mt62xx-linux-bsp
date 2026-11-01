@@ -1,0 +1,36 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo -n "Waiting for SD card..."
+    count=0
+    while [ ! -e /dev/mmcblk0p1 ]; do
+        sleep 1
+        count=$((count + 1))
+        if [ $count -ge 5 ]; then
+            echo " timeout!"
+            break
+        fi
+    done
+
+    if [ -e /dev/mmcblk0p1 ]; then
+        echo " found. Mounting to /sdcard"
+        mount -t vfat /dev/mmcblk0p1 /sdcard
+    fi
+    
+    echo "Initialization complete."
+    ;;
+  stop)
+    echo "Stopping custom MT6250 initialization..."
+    umount /sdcard
+    ;;
+  restart|reload)
+    "$0" stop
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
