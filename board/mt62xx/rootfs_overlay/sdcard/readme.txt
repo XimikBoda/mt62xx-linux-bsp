@@ -1,0 +1,1 @@
+For get access to sd card run sd.sh in root
